@@ -12,8 +12,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <style>
       html {font-family: Arial; display: inline-block; text-align: center;}
@@ -227,16 +225,6 @@
         </div>
       </div>
     </div>
-
-    <div class="content">
-      <div class="cards">
-        <div class="card header" style="border-radius: 15px;">
-            <button class='btn btn-outline-light btn-floating m-1' onclick="window.location.href='calendar.php';">Open Calendar</button>
-            <h3 style="font-size: 0.7rem;"></h3>
-        </div>
-      </div>
-    </div>
-    
     <!-- ___________________________________________________________________________________________________________________________________ -->
     
     <footer class="contens" id="footer">
@@ -274,30 +262,30 @@
       </div>
       <!-- Copyright -->
     </footer>
-    
-      <!-- // include 'database.php';
-      // $pdo = Database::connect();
-      // // $max_ecg_id_query = 'SELECT MAX(ecg_id) AS max_ecg_id FROM ecg_raw_test_2';
+    <?php 
+      include 'database.php';
+      $pdo = Database::connect();
       // $max_ecg_id_query = 'SELECT MAX(ecg_id) AS max_ecg_id FROM ecg_raw_test_2';
-      // $max_ecg_id_result = $pdo->query($max_ecg_id_query);
-      // $max_ecg_id = $max_ecg_id_result->fetch(PDO::FETCH_ASSOC)['max_ecg_id'];
+      $max_ecg_id_query = 'SELECT MAX(ecg_id) AS max_ecg_id FROM ecg_raw_test_2';
+      $max_ecg_id_result = $pdo->query($max_ecg_id_query);
+      $max_ecg_id = $max_ecg_id_result->fetch(PDO::FETCH_ASSOC)['max_ecg_id'];
 
-      // // $sql = 'SELECT data_val FROM ecg_raw_test_2 WHERE ecg_id = :ecg_id LIMIT 10000';
       // $sql = 'SELECT data_val FROM ecg_raw_test_2 WHERE ecg_id = :ecg_id LIMIT 10000';
-      // $q = $pdo->prepare($sql);
-      // $q->execute(array(':ecg_id' => $max_ecg_id));
+      $sql = 'SELECT data_val FROM ecg_raw_test_2 WHERE ecg_id = :ecg_id LIMIT 10000';
+      $q = $pdo->prepare($sql);
+      $q->execute(array(':ecg_id' => $max_ecg_id));
 
-      // $graphData = array();
-      // while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-      //   // $graphData[] = $row['data_val'];
-      //   $graphData[] = $row['data_val'];
-      // }
-      // $labels = range(1, count($graphData));
+      $graphData = array();
+      while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+        // $graphData[] = $row['data_val'];
+        $graphData[] = $row['data_val'];
+      }
+      $labels = range(1, count($graphData));
 
-      // Database::disconnect();
+      Database::disconnect();
 
-      // $graphData = json_encode($graphData);
-      // $labels = json_encode($labels);
+      $graphData = json_encode($graphData);
+      $labels = json_encode($labels);
 
       //==============================================================================================================
       // $data = json_decode(file_get_contents("php://input"), true);
@@ -320,11 +308,11 @@
       // $graphData = array_map(function($val) {
       //   return $val['data'];
       // }, $packedBulk2);
-      // $labels = range(1, count($graphData)); -->
+      // $labels = range(1, count($graphData));
 
-    
+    ?>
     <script>
-      let labels = [];
+      let labels = <?php echo $labels; ?>;
       let graphData = {
           labels: labels,
           datasets: [
@@ -332,7 +320,7 @@
               label: "ECG Live Graph",
               backgroundColor: "rgb(255, 0, 0)",
               borderColor: "rgb(255, 0, 0)",
-              data: [],
+              data: <?php echo $graphData; ?>,
               pointRadius: 0,
               fill: false,
               },
@@ -384,85 +372,7 @@
 
       let myChart = new Chart(document.getElementById('myChart'), config);
     </script>
-
-    <script>
-      graph_data();
-
-      setInterval(myTimer, 10000);
-      
-      //------------------------------------------------------------
-      function myTimer() {
-        graph_data();
-      }
-
-      function graph_data(max_ecg_id) {
-        $.ajax({
-              url: "load_home.php",
-              type: "POST",
-              data: {id: max_ecg_id},
-              dataType: "json",
-              success: function(graphDatalive) {
-                // console.log(graphDatalive);
-                // graphDatalive = JSON.parse(graphDatalive);
-                // console.log("labels:", graphDatalive.labels);
-                // console.log("graphData:", graphData.graphData);
-                // Update graph with retrieved data
-                let labels = graphDatalive.labels;
-                let data = graphDatalive.graphDatalive.map(Number);
-                let config = {
-                  type: "line",
-                  data: {
-                    labels: labels,
-                    datasets: [
-                      {
-                        label: "ECG Live Graph",
-                        backgroundColor: "rgb(255, 0, 0)",
-                        borderColor: "rgb(255, 0, 0)",
-                        data: data,
-                        pointRadius: 0,
-                        fill: false,
-                      },
-                    ],
-                  },
-                  options: {
-                    animation: {
-                      onComplete: function () {
-                        // console.log(myChart.toBase64Image());
-                        console.log('success')
-                      },
-                    },
-                    scales: {
-                      yAxis: {
-                        title: {
-                          display: true,
-                          text: "Amplitudo (V)",
-                        },
-                      },
-                      xAxis: {
-                        ticks: {
-                          autoskip: false,
-                        },
-                        title: {
-                          display: true,
-                          text: "n_data",
-                        },
-                      },
-                    },
-                    spanGaps: true,
-                    responsive: true,
-                    maintainAspectRatio: true,
-                  },
-                };
-
-                let ctx = document.getElementById("myChart").getContext("2d");
-                let myChart = new Chart(ctx, config);
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-                  console.log("Error: " + textStatus + " " + errorThrown);
-              }
-            });
-      }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script> -->
     <!-- <script src="main_2.js" type="module"></script> -->

@@ -3,8 +3,9 @@
   $pdo = Database::connect();
   
   $id = $_POST['id'];
+  // $id = [];
   
-  $sql = 'SELECT data_val FROM ecg_raw_test_2 WHERE ecg_id = :ecg_id';
+  $sql = 'SELECT data_val FROM ecg_raw_test_2 WHERE ecg_id = :ecg_id LIMIT 9000';
   $q = $pdo->prepare($sql);
   $q->execute(array(':ecg_id' => $id));
 

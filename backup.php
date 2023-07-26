@@ -47,21 +47,6 @@
   $heartrate = $data['heartrate'];
   $classification = $data['classification'];
 
-  // $id = isset($data['id']) ? $data['id'] : null;
-  // $rr = isset($data['rr']) ? $data['rr'] : null;
-  // $rr_stdev = isset($data['rr_stdev']) ? $data['rr_stdev'] : null;
-  // $pr = isset($data['pr']) ? $data['pr'] : null;
-  // $pr_stdev = isset($data['pr_stdev']) ? $data['pr_stdev'] : null;
-  // $qs = isset($data['qs']) ? $data['qs'] : null;
-  // $qs_stdev = isset($data['qs_stdev']) ? $data['qs_stdev'] : null;
-  // $qt = isset($data['qt']) ? $data['qt'] : null;
-  // $qt_stdev = isset($data['qt_stdev']) ? $data['qt_stdev'] : null;
-  // $st = isset($data['st']) ? $data['st'] : null;
-  // $st_stdev = isset($data['st_stdev']) ? $data['st_stdev'] : null;
-  // $heartrate = isset($data['heartrate']) ? $data['heartrate'] : null;
-  // $classification = isset($data['classification']) ? $data['classification'] : null;
-
-
   //================================================================== START ALL FROM HERE =========================================
 
 
@@ -137,10 +122,10 @@
         "ecg_id" => $ecg_id,
         "data" => $value
     );
-  // },  isset($data['ecg_graph']) ? $data['ecg_graph'] : null);
-  }, $data['ecg_graph']); 
+  // }, $data['ecg_graph']);
+  }, $data['ecg_raw_on']);
 
-  //................................................................................ DATA INSERT ECG RAW NORMAL + ABNORMAL
+  //................................................................................ DATA INSERT ECG RAW
   $placeholders = implode(",", array_fill(0, count($packedBulk), "(?,?)"));
 
   $pdo = Database::connect();
@@ -159,13 +144,13 @@
   Database::disconnect();
 
 
-  // //................................................................................ DATA INSERT ECG RAW UPDATE
+  //................................................................................ DATA INSERT ECG RAW ONLY
   // $packedBulk2 = array_map(function($val_s) use ($ecg_id) {
   //   return array(
   //       "ecg_id" => $ecg_id,
   //       "data" => $val_s
   //   );
-  // }, $data['ecg_graph']);
+  // }, $data['ecg_raw_on']);
 
   // $placeholders2 = implode(",", array_fill(0, count($packedBulk2), "(?,?)"));
 
@@ -178,29 +163,10 @@
   //   $values_s[] = $val_s['data'];
   // }
 
-  // $sql = "UPDATE ecg_raw (ecg_id, data_raw) VALUES $placeholders2";
+  // $sql = "INSERT INTO ecg_raw (ecg_id, data_raw) VALUES $placeholders2";
   // $q = $pdo->prepare($sql);
   // $q->execute($values_s);
 
   // Database::disconnect();
   
-
-  // $packedBulk2 = array_map(function($val_s) use ($ecg_id) {
-  //   return array(
-  //       "ecg_id" => $ecg_id,
-  //       "data" => $val_s
-  //   );
-  // }, $data['ecg_graph']);
-
-  // $pdo = Database::connect();
-  // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-  // foreach ($packedBulk2 as $val_s) {
-  //     $sql = "UPDATE ecg_raw SET data_raw = :data WHERE ecg_id = :ecg_id";
-  //     $q = $pdo->prepare($sql);
-  //     $q->execute(array(':data' => $val_s['data'], ':ecg_id' => $val_s['ecg_id']));
-  // }
-
-  // Database::disconnect();
-
 ?>

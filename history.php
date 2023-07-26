@@ -15,10 +15,10 @@
       p {font-size: 1.2rem;}
       h4 {font-size: 0.8rem;}
       body {margin: 0;}
-      .card {background-color: white; box-shadow: 0px 0px 10px 1px rgba(140,140,140,.5); border: 1px solid #0c6980; border-radius: 15px;}
-      .card.header {background-color: #0c6980; color: white; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-right-radius: 12px; border-top-left-radius: 12px; padding: 10px;}
+      .card {background-color: white; box-shadow: 0px 0px 10px 1px rgba(140,140,140,.5); border: 1px solid royalblue; border-radius: 15px;}
+      .card.header {background-color: royalblue; color: white; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-right-radius: 12px; border-top-left-radius: 12px; padding: 10px;}
       /* ----------------------------------- TOPNAV STYLE */
-      .topnav {overflow: hidden; background-color: #0c6980; color: white; font-size: 1.2rem; padding: 15px;}
+      .topnav {overflow: hidden; background-color: royalblue; color: white; font-size: 1.2rem; padding: 15px;}
       /* ----------------------------------- */
       .jumbotron {
         flex: 0 0 100%;
@@ -48,7 +48,7 @@
       }
 
       .styled-table thead tr {
-        background-color: #0c6980;
+        background-color: royalblue;
         color: #ffffff;
         text-align: left;
       }
@@ -82,7 +82,7 @@
       .styled-table tbody tr:nth-of-type(even):hover {background-color: rgba(12, 105, 128, 0.15);}
       /* ----------------------------------- BUTTON STYLE */
       .btn-group .button {
-        background-color: #0c6980; 
+        background-color: royalblue; 
         border: 1px solid #e3e3e3;
         color: white;
         padding: 5px 8px;
@@ -102,7 +102,7 @@
       }
 
       .btn-group .button:active {
-        background-color: #0c6980;
+        background-color: royalblue;
         transform: translateY(1px);
       }
 
@@ -118,7 +118,7 @@
         margin-top: 30px;
         padding: 20px;
         color: white;
-        background-color: #0c6980;
+        background-color: royalblue;
         text-align: center;
         font-weight: bold;
       }
@@ -140,7 +140,7 @@
     
     <br>
     
-    <h3 style="color: #0c6980;">Electrocardiogram Recorded Data</h3>
+    <h3 style="color: royalblue;">Electrocardiogram Recorded Data</h3>
 
     <br>
     <!-- ----------------------------------- CANVAS ---------------------------------------- -->
@@ -209,7 +209,7 @@
     <br>
 <!-- ----------------------------------- Tabel 2 ---------------------------------------- -->
     <div class="container">
-      <h3 class="jumbotron-fluid" style="padding-top: 15px; padding-bottom: 15px; color: #0c6980;">ECG Parameters</h3>
+      <h3 class="jumbotron-fluid" style="padding-top: 15px; padding-bottom: 15px; color: royalblue;">ECG Parameters</h3>
       <p class="card header">Table Classes for PQRST Segments and Classification</p>            
       <table class="table table-hover">
         <thead>
@@ -302,7 +302,7 @@
       </div>
 
       <div class="text-center p-3">
-        2023 &#169;: Monitoring EKG menggunakan proktol MQTT
+        2023 &#169;: Monitoring EKG menggunakan protokol MQTT
       </div>
     </footer>
     <script>
@@ -321,8 +321,8 @@
     </script>
 <!-- ----------------------------------- SCRIPT GRAPH ---------------------------------------- -->
     <script>
-      const labels = [];
-      const graphData = {
+      let labels = [];
+      let graphData = {
           labels: labels,
           datasets: [
               {
@@ -337,13 +337,14 @@
           options: {
               animation: {
               onComplete: function () {
-                  console.log(myChart.toBase64Image());
+                  // console.log(myChart.toBase64Image());
+                  console.log("Success");
               },
               },
           },
       };
 
-      const config = {
+      let config = {
           type: "line",
           data: graphData,
           options: {
@@ -370,7 +371,7 @@
           },
       };
 
-      const myChart = new Chart(document.getElementById('myChart'), config);
+      let myChart = new Chart(document.getElementById('myChart'), config);
     </script>
 <!-- ----------------------------------- SCRIPT BUTTON-Tabel1 ---------------------------------------- -->
     <script>
@@ -501,9 +502,9 @@
                 // console.log("labels:", graphData.labels);
                 // console.log("graphData:", graphData.graphData);
                 // Update graph with retrieved data
-                const labels = graphData.labels;
-                const data = graphData.graphData.map(Number);
-                const config = {
+                let labels = graphData.labels;
+                let data = graphData.graphData.map(Number);
+                let config = {
                   type: "line",
                   data: {
                     labels: labels,
@@ -521,7 +522,8 @@
                   options: {
                     animation: {
                       onComplete: function () {
-                        console.log(myChart.toBase64Image());
+                        // console.log(myChart.toBase64Image());
+                        console.log('success')
                       },
                     },
                     scales: {
@@ -547,8 +549,8 @@
                   },
                 };
 
-                const ctx = document.getElementById("myChart").getContext("2d");
-                myChart = new Chart(ctx, config);
+                let ctx = document.getElementById("myChart").getContext("2d");
+                let myChart = new Chart(ctx, config);
               },
             });
 

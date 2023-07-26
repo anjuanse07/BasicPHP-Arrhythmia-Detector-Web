@@ -12,7 +12,7 @@
       h4 {font-size: 0.8rem;}
       body {margin: 0;}
       /* ----------------------------------- TOPNAV STYLE */
-      .topnav {overflow: hidden; background-color: #0c6980; color: white; font-size: 1.2rem; padding: 15px;}
+      .topnav {overflow: hidden; background-color: royalblue; color: white; font-size: 1.2rem; padding: 15px;}
       /* ----------------------------------- */
       
       /* ----------------------------------- TABLE STYLE */
@@ -30,7 +30,7 @@
       }
 
       .styled-table thead tr {
-        background-color: #0c6980;
+        background-color: royalblue;
         color: #ffffff;
         text-align: left;
       }
@@ -66,7 +66,7 @@
       
       /* ----------------------------------- BUTTON STYLE */
       .btn-group .button {
-        background-color: #0c6980; 
+        background-color: royalblue; 
         border: 1px solid #e3e3e3;
         color: white;
         padding: 5px 8px;
@@ -86,7 +86,7 @@
       }
 
       .btn-group .button:active {
-        background-color: #0c6980;
+        background-color: royalblue;
         transform: translateY(1px);
       }
 
@@ -101,7 +101,7 @@
 
       .forms{
         margin-top: 20px;
-        background-color: #0c6980; 
+        background-color: royalblue; 
         border: 1px solid #e3e3e3;
         color: white;
         padding: 5px 8px;
@@ -122,7 +122,7 @@
         margin-top: 30px;
         padding: 20px;
         color: white;
-        background-color: #0c6980;
+        background-color: royalblue;
         text-align: center;
         font-weight: bold;
       }
@@ -136,7 +136,7 @@
     
     <br>
     
-    <h3 style="color: #0c6980; font-size: 0.8 rem;">RECORDED DATA TABLE</h3>
+    <h3 style="color: royalblue; font-size: 0.8 rem;">RECORDED DATA TABLE</h3>
     
     <table class="styled-table" id= "table_id">
       <thead>
@@ -204,7 +204,7 @@
 
     <br>
 
-    <h3 style="color: #0c6980; font-size: 0.8 rem; margin-top : 20px;">RECORDED DATA TABLE : FILTER</h3>
+    <h3 style="color: royalblue; font-size: 0.8 rem; margin-top : 20px;">RECORDED DATA TABLE : FILTER</h3>
 
     <form class="forms" id="filter-form">
       <label for="start-date">Start Date :</label>
